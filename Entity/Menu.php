@@ -2,6 +2,7 @@
 
 namespace KunicMarko\SimpleMenuBundle\Entity;
 
+use Cocur\Slugify\Slugify;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -13,6 +14,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity()
  * @UniqueEntity(fields="title", message="Title is already taken.")
  * @ORM\Table(name="simple_menu")
+ * @ORM\HasLifecycleCallbacks()
  */
 
 class Menu
@@ -37,6 +39,18 @@ class Menu
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $title;
+
+    /**
+     * @var string
+     * @Assert\Regex("/^[a-zA-Z0-9_]+$/")
+     * @Assert\Length(
+     *      max = 255,
+     *      maxMessage = "Machine Name cannot be longer than {{ limit }} characters"
+     * )
+     *
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $machineName;
 
     /**
      * @ORM\OneToMany(targetEntity="MenuItem", mappedBy="menu", cascade={"persist","remove"}, orphanRemoval=true)
@@ -75,6 +89,30 @@ class Menu
     {
         return $this->title;
     }
+
+    /**
+     * Set Machine Name
+     *
+     * @param string $machineName
+     * @return Menu
+     */
+    public function setMachineName($machineName)
+    {
+        $this->machineName = strtolower($machineName);
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getMachineName()
+    {
+        return $this->machineName;
+    }
+
     /**
      * Constructor
      */
@@ -115,5 +153,23 @@ class Menu
     public function getMenuItem()
     {
         return $this->menuItem;
+    }
+
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function onPersistUpdate()
+    {
+        if ($this->machineName == null) {
+            $slugify = new Slugify();
+            $this->machineName = $slugify->slugify($this->title);
+        }
+    }
+
+    public function __toString()
+    {
+        return $this->title === null ? 'Menu' : $this->title;
     }
 }

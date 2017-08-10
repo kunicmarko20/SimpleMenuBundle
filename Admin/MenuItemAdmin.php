@@ -6,10 +6,14 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
 
 class MenuItemAdmin extends AbstractAdmin
 {
+    protected $parentAssociationMapping = 'menu';
+
+
     /**
      * @param DatagridMapper $datagridMapper
      */
@@ -30,7 +34,7 @@ class MenuItemAdmin extends AbstractAdmin
         $listMapper
             ->add('id')
             ->add('title')
-            ->add('path')
+            ->add('path', 'url')
             ->add('_action', null, array(
                 'actions' => array(
                     'edit' => array(),

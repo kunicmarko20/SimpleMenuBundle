@@ -29,10 +29,12 @@ class MenuAdmin extends AbstractAdmin
         $listMapper
             ->add('id')
             ->add('title')
+            ->add('machineName')
             ->add('_action', null, array(
                 'actions' => array(
+                    'children' => array('template' => 'SimpleMenuBundle:CRUD:menu_children.html.twig'),
                     'edit' => array(),
-                    'delete' => array(),
+                    'delete' => array()
                 ),
             ))
         ;
@@ -45,6 +47,7 @@ class MenuAdmin extends AbstractAdmin
     {
         $formMapper
             ->add('title')
+            ->add('machineName')
         ;
     }
 

@@ -11,6 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @package KunicMarko\SimpleMenuBundle\Entity
  * @ORM\Entity()
  * @ORM\Table(name="simple_menu_item")
+ * @ORM\HasLifecycleCallbacks()
  */
 
 class MenuItem
@@ -48,6 +49,7 @@ class MenuItem
     private $path;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\ManyToOne(targetEntity="Menu", inversedBy="menuItem")
      */
     private $menu;
@@ -62,6 +64,19 @@ class MenuItem
      * @ORM\OneToMany(targetEntity="MenuItem", mappedBy="parent")
      */
     private $children;
+
+    /**
+     * @var int
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $level;
+
+    /**
+     * @var int
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $weight;
+
     /**
      * Get id
      *
@@ -179,7 +194,8 @@ class MenuItem
      */
     public function addChild(MenuItem $children)
     {
-        $this->children[] = $children;
+        $children->setParent($this);
+        $this->children->add($children);
 
         return $this;
     }
@@ -208,4 +224,63 @@ class MenuItem
     {
         return $this->title === null ? 'Menu Item' : $this->title;
     }
+
+    /**
+     * Set level
+     *
+     * @param integer $level
+     * @return MenuItem
+     */
+    public function setLevel($level)
+    {
+        $this->level = $level;
+
+        return $this;
+    }
+
+    /**
+     * Get level
+     *
+     * @return integer 
+     */
+    public function getLevel()
+    {
+        return $this->level;
+    }
+    /**
+     * Set weight
+     *
+     * @param integer $weight
+     * @return MenuItem
+     */
+    public function setWeight($weight)
+    {
+        $this->weight = $weight;
+
+        return $this;
+    }
+
+    /**
+     * Get weight
+     *
+     * @return integer
+     */
+    public function getWeight()
+    {
+        return $this->weight;
+    }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function onPersistUpdate()
+    {
+        if ($this->parent == null) {
+            $this->level = 1;
+        } else {
+            $this->level = $this->parent->getLevel() + 1;
+        }
+    }
+
 }
