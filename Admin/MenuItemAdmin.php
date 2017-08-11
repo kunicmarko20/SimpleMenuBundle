@@ -8,11 +8,12 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery;
 
 class MenuItemAdmin extends AbstractAdmin
 {
-    protected $parentAssociationMapping = 'menu';
 
+    protected $parentAssociationMapping = 'menu';
 
     /**
      * @param DatagridMapper $datagridMapper
@@ -32,8 +33,9 @@ class MenuItemAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('id')
-            ->add('title')
+            ->addIdentifier('title', 'string', array(
+                'template' => 'SimpleMenuBundle:CRUD:list_field_indented_tree_node_identifier.html.twig'
+            ))
             ->add('path', 'url')
             ->add('_action', null, array(
                 'actions' => array(
@@ -53,6 +55,8 @@ class MenuItemAdmin extends AbstractAdmin
             ->add('title')
             ->add('path')
             ->add('parent')
+            ->add('weight')
         ;
+
     }
 }

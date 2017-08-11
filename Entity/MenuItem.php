@@ -57,11 +57,13 @@ class MenuItem
     /**
      * @ORM\ManyToOne(targetEntity="MenuItem", inversedBy="children")
      * @ORM\JoinColumn(referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\OrderBy(value={"level" = "ASC", "weight" = "ASC"})
      */
     private $parent;
 
     /**
      * @ORM\OneToMany(targetEntity="MenuItem", mappedBy="parent")
+     * @ORM\OrderBy(value={"level" = "ASC", "weight" = "ASC"})
      */
     private $children;
 
@@ -281,6 +283,13 @@ class MenuItem
         } else {
             $this->level = $this->parent->getLevel() + 1;
         }
-    }
 
+        if ($this->weight == null && $this->parent != null && $this->parent->getChildren()->count() > 0) {
+            $children = $this->parent->getChildren();
+            $last = $children->last();
+            $this->weight = $last->getWeight() + 1;
+        } elseif ($this->weight == null) {
+            $this->weight = 50;
+        }
+    }
 }
