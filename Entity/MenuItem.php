@@ -57,13 +57,12 @@ class MenuItem
     /**
      * @ORM\ManyToOne(targetEntity="MenuItem", inversedBy="children")
      * @ORM\JoinColumn(referencedColumnName="id", onDelete="CASCADE")
-     * @ORM\OrderBy(value={"level" = "ASC", "weight" = "ASC"})
      */
     private $parent;
 
     /**
      * @ORM\OneToMany(targetEntity="MenuItem", mappedBy="parent")
-     * @ORM\OrderBy(value={"level" = "ASC", "weight" = "ASC"})
+     * @ORM\OrderBy(value={"level" = "DESC", "weight" = "ASC"})
      */
     private $children;
 
@@ -74,15 +73,9 @@ class MenuItem
     private $level;
 
     /**
-     * @var int
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $weight;
-
-    /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -105,7 +98,7 @@ class MenuItem
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
@@ -128,7 +121,7 @@ class MenuItem
     /**
      * Get path
      *
-     * @return string 
+     * @return string
      */
     public function getPath()
     {
@@ -215,7 +208,7 @@ class MenuItem
     /**
      * Get children
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getChildren()
     {
@@ -243,53 +236,10 @@ class MenuItem
     /**
      * Get level
      *
-     * @return integer 
+     * @return integer
      */
     public function getLevel()
     {
         return $this->level;
-    }
-    /**
-     * Set weight
-     *
-     * @param integer $weight
-     * @return MenuItem
-     */
-    public function setWeight($weight)
-    {
-        $this->weight = $weight;
-
-        return $this;
-    }
-
-    /**
-     * Get weight
-     *
-     * @return integer
-     */
-    public function getWeight()
-    {
-        return $this->weight;
-    }
-
-    /**
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
-     */
-    public function onPersistUpdate()
-    {
-        if ($this->parent == null) {
-            $this->level = 1;
-        } else {
-            $this->level = $this->parent->getLevel() + 1;
-        }
-
-        if ($this->weight == null && $this->parent != null && $this->parent->getChildren()->count() > 0) {
-            $children = $this->parent->getChildren();
-            $last = $children->last();
-            $this->weight = $last->getWeight() + 1;
-        } elseif ($this->weight == null) {
-            $this->weight = 50;
-        }
     }
 }

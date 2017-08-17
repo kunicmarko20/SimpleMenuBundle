@@ -54,13 +54,14 @@ class Menu
 
     /**
      * @ORM\OneToMany(targetEntity="MenuItem", mappedBy="menu", cascade={"persist","remove"}, orphanRemoval=true)
+     * @ORM\OrderBy(value={"level" = "DESC", "weight" = "ASC"})
      **/
     private $menuItem;
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -83,7 +84,7 @@ class Menu
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
@@ -148,7 +149,7 @@ class Menu
     /**
      * Get menuItem
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getMenuItem()
     {
@@ -162,7 +163,7 @@ class Menu
      */
     public function onPersistUpdate()
     {
-        if ($this->machineName == null) {
+        if ($this->machineName === null) {
             $slugify = new Slugify();
             $this->machineName = $slugify->slugify($this->title);
         }
