@@ -15,17 +15,10 @@ class MenuItemAdmin extends AbstractAdmin
 
     protected $parentAssociationMapping = 'menu';
 
-    /**
-     * @param DatagridMapper $datagridMapper
-     */
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
-    {
-        $datagridMapper
-            ->add('id')
-            ->add('title')
-            ->add('path')
-        ;
-    }
+    protected $datagridValues = array(
+        '_sort_order' => 'ASC',
+        '_sort_by'    => 'p.root, p.lft'
+    );
 
     /**
      * @param ListMapper $listMapper
@@ -55,8 +48,6 @@ class MenuItemAdmin extends AbstractAdmin
             ->add('title')
             ->add('path')
             ->add('parent')
-            ->add('weight')
         ;
-
     }
 }

@@ -2,8 +2,8 @@
 
 {%- block field %}
 <span>
-    {% for i in 2..object.level %}
-        {% if object.level != 1 %}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{% endif %}{% if loop.last and object.level != 1 %}&boxur;&boxh;&nbsp;{% endif %}
+    {% for i in 1..object.lvl %}
+        {% if object.lvl != 0 %}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{% endif %}
     {% endfor %}
     {{ object.title }}
 </span>
