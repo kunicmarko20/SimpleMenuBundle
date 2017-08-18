@@ -2,13 +2,14 @@
 
 namespace KunicMarko\SimpleMenuBundle\Admin;
 
+use KunicMarko\SimpleMenuBundle\Entity\MenuItem;
+use KunicMarko\SimpleMenuBundle\Repository\MenuItemRepository;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
-use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
-use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class MenuItemAdmin extends AbstractAdmin
 {
@@ -44,10 +45,43 @@ class MenuItemAdmin extends AbstractAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
+        $object = $this->getSubject();
+
         $formMapper
             ->add('title')
             ->add('path')
-            ->add('parent')
+            ->add('parent', EntityType::class, [
+                'class' => MenuItem::class,
+                'query_builder' => function (MenuItemRepository $mir) use ($object) {
+                    return $mir->getChildrenOfMenu($object->getMenu());
+                }
+            ])
         ;
+    }
+
+    /**
+     * @param string $context
+     * @return ProxyQuery
+     */
+    public function createQuery($context = 'list')
+    {
+        $proxyQuery = parent::createQuery('list');
+
+        $proxyQuery
+            ->where('o.parent IS NOT NULL');
+        ;
+
+        return $proxyQuery;
+    }
+
+    /**
+     * @param RouteCollection $collection
+     */
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        parent::configureRoutes($collection);
+
+        $collection->add('tree_up', $this->getRouterIdParameter().'/up');
+        $collection->add('tree_down', $this->getRouterIdParameter().'/down');
     }
 }

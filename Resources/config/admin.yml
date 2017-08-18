@@ -9,6 +9,6 @@ services:
 
     simple_menu.admin.menu_item:
         class: KunicMarko\SimpleMenuBundle\Admin\MenuItemAdmin
-        arguments: [~, KunicMarko\SimpleMenuBundle\Entity\MenuItem, SonataAdminBundle:CRUD]
+        arguments: [~, KunicMarko\SimpleMenuBundle\Entity\MenuItem, SimpleMenuBundle:MenuItemCRUD]
         tags:
             - { name: sonata.admin, manager_type: orm, group: CMS, label: MenuItem, show_in_dashboard: false }

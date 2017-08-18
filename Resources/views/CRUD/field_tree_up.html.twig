@@ -1,6 +1,6 @@
 {% spaceless %}
     {% if (object.parent != null) and (object.parent.children[0].id != object.id) %}
-        <a href="#"> {#{{ admin.generateUrl('page_tree_up', {'page_id': object.id}) }}#}
+        <a href="{{ admin.generateObjectUrl('tree_up', object) }}">
             <i class="fa fa-arrow-up" aria-hidden="true"></i>
         </a>
     {% endif %}

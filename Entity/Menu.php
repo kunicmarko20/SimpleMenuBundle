@@ -12,6 +12,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * Class Menu
  * @package KunicMarko\SimpleMenuBundle\Entity
  * @ORM\Entity()
+ * @UniqueEntity(fields="machineName", message="Machine Name is already taken.")
  * @UniqueEntity(fields="title", message="Title is already taken.")
  * @ORM\Table(name="simple_menu")
  * @ORM\HasLifecycleCallbacks()
@@ -54,7 +55,6 @@ class Menu
 
     /**
      * @ORM\OneToMany(targetEntity="MenuItem", mappedBy="menu", cascade={"persist","remove"}, orphanRemoval=true)
-     * @ORM\OrderBy(value={"level" = "DESC", "weight" = "ASC"})
      **/
     private $menuItem;
 
@@ -166,6 +166,12 @@ class Menu
         if ($this->machineName === null) {
             $slugify = new Slugify();
             $this->machineName = $slugify->slugify($this->title);
+        }
+
+        if ($this->menuItem->count() === 0) {
+            $menuItem = new MenuItem();
+            $menuItem->setTitle($this->title);
+            $this->addMenuItem($menuItem);
         }
     }
 

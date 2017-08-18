@@ -6,12 +6,14 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
+use KunicMarko\SimpleMenuBundle\Validator\Constraints as SimpleMenuAssert;
 
 /**
  * Class MenuItem
  * @package KunicMarko\SimpleMenuBundle\Entity
  * @Gedmo\Tree(type="nested")
- * @ORM\Entity(repositoryClass="Gedmo\Tree\Entity\Repository\NestedTreeRepository")
+ * @SimpleMenuAssert\MenuScope
+ * @ORM\Entity(repositoryClass="KunicMarko\SimpleMenuBundle\Repository\MenuItemRepository")
  * @ORM\Table(name="simple_menu_item")
  * @ORM\HasLifecycleCallbacks()
  */
@@ -83,6 +85,7 @@ class MenuItem
 
     /**
      * @Gedmo\TreeParent
+     * @Assert\NotNull()
      * @ORM\ManyToOne(targetEntity="MenuItem", inversedBy="children")
      * @ORM\JoinColumn(referencedColumnName="id", onDelete="CASCADE")
      */
