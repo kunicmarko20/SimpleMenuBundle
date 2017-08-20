@@ -1,0 +1,6 @@
+services:
+    simple_menu.render_menu.twig:
+        class: KunicMarko\SimpleMenuBundle\Twig\RenderMenu
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: twig.extension }

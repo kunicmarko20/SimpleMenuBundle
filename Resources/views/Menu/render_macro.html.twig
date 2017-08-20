@@ -1,0 +1,16 @@
+{% macro render(items, level, depth = 1) %}
+
+    {% import _self as menu %}
+    <ul>
+        {% for item in items %}
+            <li>
+                <a href="{{ item.path }}">
+                    {{ item.title }}
+                </a>
+                {% if item.children and level > depth %}
+                    {{ menu.render(item.children, level, depth + 1) }}
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+{% endmacro %}

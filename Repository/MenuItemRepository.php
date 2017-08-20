@@ -22,9 +22,13 @@ class MenuItemRepository extends NestedTreeRepository
     public function getTreeListByMenu($menu)
     {
         $queryBuilder = $this->getNodesHierarchyQueryBuilder();
-        $queryBuilder->where('node.menu = :menu')
+
+        $queryBuilder
+            ->where('node.menu = :menu')
             ->andWhere('node.parent IS NOT NULL')
-            ->setParameter('menu', $menu);
+            ->andWhere('node.lvl = 1')
+            ->setParameter('menu', $menu)
+        ;
 
         return $queryBuilder
             ->getQuery()
