@@ -10,12 +10,24 @@ class MenuItemRepository extends NestedTreeRepository
 {
     public function getChildrenOfMenu(Menu $menu)
     {
-        $qb = $this->getEntityManager()->createQueryBuilder()
+        $queryBuilder = $this->getEntityManager()->createQueryBuilder()
             ->select('mi')
             ->from(MenuItem::class, 'mi')
             ->where('mi.menu = :menu')
             ->setParameter('menu', $menu);
 
-        return $qb;
+        return $queryBuilder;
+    }
+
+    public function getTreeListByMenu($menu)
+    {
+        $queryBuilder = $this->getNodesHierarchyQueryBuilder();
+        $queryBuilder->where('node.menu = :menu')
+            ->andWhere('node.parent IS NOT NULL')
+            ->setParameter('menu', $menu);
+
+        return $queryBuilder
+            ->getQuery()
+            ->getResult();
     }
 }

@@ -30,7 +30,7 @@ class MenuItemAdmin extends AbstractAdmin
             ->addIdentifier('title', 'string', array(
                 'template' => 'SimpleMenuBundle:CRUD:list_field_indented_tree_node_identifier.html.twig'
             ))
-            ->add('path', 'url')
+            ->add('path', 'url', ['label' => 'URL'])
             ->add('_action', null, array(
                 'actions' => array(
                     'edit' => array(),
@@ -72,6 +72,19 @@ class MenuItemAdmin extends AbstractAdmin
         ;
 
         return $proxyQuery;
+    }
+
+    /**
+     * @param string $name
+     * @return string
+     */
+    public function getTemplate($name)
+    {
+        if ($name === 'list') {
+            return 'SimpleMenuBundle:CRUD:list.html.twig';
+        }
+
+        return parent::getTemplate($name);
     }
 
     /**

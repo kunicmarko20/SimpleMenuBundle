@@ -1,0 +1,14 @@
+.action-bar {
+    visibility: hidden;
+}
+
+td.sonata-ba-list-field:hover .action-bar {
+    visibility: visible;
+}
+
+a.admin-list-anchor {
+    display: block;
+    position: relative;
+    top: -110px;
+    visibility: hidden;
+}
