@@ -16,11 +16,14 @@ class RenderMenu extends \Twig_Extension
 {
     private $menuItemRepository;
     private $menuRepository;
+    /** @var string */
+    private $renderTemplate;
 
-    public function __construct(EntityManager $entityManager)
+    public function __construct(EntityManager $entityManager, $renderTemplate)
     {
         $this->menuItemRepository = $entityManager->getRepository(MenuItem::class);
         $this->menuRepository = $entityManager->getRepository(Menu::class);
+        $this->renderTemplate = $renderTemplate;
     }
 
     public function getName()
@@ -43,19 +46,19 @@ class RenderMenu extends \Twig_Extension
         ];
     }
 
-    public function fetchMenu($machineName)
+    public function fetchMenu($machineName, $level = 1)
     {
         $menu = $this->menuRepository->findOneBy(['machineName' => $machineName]);
 
-        return $this->menuItemRepository->getTreeListByMenu($menu);
+        return $this->menuItemRepository->getTreeListByMenu($menu, $level);
     }
 
     public function renderMenu(\Twig_Environment $environment, $machineName, $level = 1)
     {
-        $menuItems = $this->fetchMenu($machineName);
+        $menuItems = $this->fetchMenu($machineName, $level);
 
         return $environment->render(
-            'SimpleMenuBundle:Menu:render.html.twig',
+            $this->renderTemplate,
             [
                 'items' => $menuItems,
                 'level' => $level

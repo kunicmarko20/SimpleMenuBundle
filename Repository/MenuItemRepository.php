@@ -19,9 +19,23 @@ class MenuItemRepository extends NestedTreeRepository
         return $queryBuilder;
     }
 
-    public function getTreeListByMenu($menu)
+    public function getTreeListByMenu($menu, $level)
     {
         $queryBuilder = $this->getNodesHierarchyQueryBuilder();
+
+        /**
+         * Need to think about this part with joins, maybe remove it/find a better option
+         * Maybe go with some caching
+         */
+        $queryBuilder
+            ->leftJoin('node.children', 'c1')
+            ->addSelect('c1');
+
+        for ($i = 1; $i < $level;) {
+            $queryBuilder
+                ->leftJoin('c' . $i . '.children', 'c' . ++$i)
+                ->addSelect('c' . $i);
+        }
 
         $queryBuilder
             ->where('node.menu = :menu')
