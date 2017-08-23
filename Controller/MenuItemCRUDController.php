@@ -7,6 +7,11 @@ use Sonata\AdminBundle\Controller\CRUDController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
+/**
+ * Class MenuItemCRUDController
+ *
+ * @package KunicMarko\SimpleMenuBundle\Controller
+ */
 class MenuItemCRUDController extends CRUDController
 {
     /**

@@ -10,6 +10,7 @@ use KunicMarko\SimpleMenuBundle\Validator\Constraints as SimpleMenuAssert;
 
 /**
  * Class MenuItem
+ *
  * @package KunicMarko\SimpleMenuBundle\Entity
  * @Gedmo\Tree(type="nested")
  * @SimpleMenuAssert\MenuScope
@@ -17,7 +18,6 @@ use KunicMarko\SimpleMenuBundle\Validator\Constraints as SimpleMenuAssert;
  * @ORM\Table(name="simple_menu_item")
  * @ORM\HasLifecycleCallbacks()
  */
-
 class MenuItem
 {
     /**

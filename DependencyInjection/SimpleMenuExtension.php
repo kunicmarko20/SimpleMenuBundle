@@ -7,6 +7,11 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\Config\FileLocator;
 
+/**
+ * Class SimpleMenuExtension
+ *
+ * @package KunicMarko\SimpleMenuBundle\DependencyInjection
+ */
 class SimpleMenuExtension extends Extension
 {
     /**

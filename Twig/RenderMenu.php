@@ -12,6 +12,11 @@ use Doctrine\ORM\EntityManager;
 use KunicMarko\SimpleMenuBundle\Entity\Menu;
 use KunicMarko\SimpleMenuBundle\Entity\MenuItem;
 
+/**
+ * Class RenderMenu
+ *
+ * @package KunicMarko\SimpleMenuBundle\Twig
+ */
 class RenderMenu extends \Twig_Extension
 {
     private $menuItemRepository;
@@ -46,16 +51,16 @@ class RenderMenu extends \Twig_Extension
         ];
     }
 
-    public function fetchMenu($machineName, $level = 1)
+    public function fetchMenu($machineName)
     {
         $menu = $this->menuRepository->findOneBy(['machineName' => $machineName]);
 
-        return $this->menuItemRepository->getTreeListByMenu($menu, $level);
+        return $this->menuItemRepository->getTreeListByMenu($menu);
     }
 
     public function renderMenu(\Twig_Environment $environment, $machineName, $level = 1)
     {
-        $menuItems = $this->fetchMenu($machineName, $level);
+        $menuItems = $this->fetchMenu($machineName);
 
         return $environment->render(
             $this->renderTemplate,

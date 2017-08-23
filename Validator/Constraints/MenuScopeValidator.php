@@ -12,6 +12,11 @@ use KunicMarko\SimpleMenuBundle\Entity\MenuItem;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Constraint;
 
+/**
+ * Class MenuScopeValidator
+ *
+ * @package KunicMarko\SimpleMenuBundle\Validator\Constraints
+ */
 class MenuScopeValidator extends ConstraintValidator
 {
     /**

@@ -5,7 +5,13 @@ namespace KunicMarko\SimpleMenuBundle\Repository;
 use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
 use KunicMarko\SimpleMenuBundle\Entity\Menu;
 use KunicMarko\SimpleMenuBundle\Entity\MenuItem;
+use Doctrine\ORM\Query;
 
+/**
+ * Class MenuItemRepository
+ *
+ * @package KunicMarko\SimpleMenuBundle\Repository
+ */
 class MenuItemRepository extends NestedTreeRepository
 {
     public function getChildrenOfMenu(Menu $menu)
@@ -19,33 +25,19 @@ class MenuItemRepository extends NestedTreeRepository
         return $queryBuilder;
     }
 
-    public function getTreeListByMenu($menu, $level)
+    public function getTreeListByMenu(Menu $menu)
     {
         $queryBuilder = $this->getNodesHierarchyQueryBuilder();
-
-        /**
-         * Need to think about this part with joins, maybe remove it/find a better option
-         * Maybe go with some caching
-         */
-        $queryBuilder
-            ->leftJoin('node.children', 'c1')
-            ->addSelect('c1');
-
-        for ($i = 1; $i < $level;) {
-            $queryBuilder
-                ->leftJoin('c' . $i . '.children', 'c' . ++$i)
-                ->addSelect('c' . $i);
-        }
 
         $queryBuilder
             ->where('node.menu = :menu')
             ->andWhere('node.parent IS NOT NULL')
-            ->andWhere('node.lvl = 1')
-            ->setParameter('menu', $menu)
-        ;
+            ->setParameter('menu', $menu);
 
-        return $queryBuilder
+        $result =  $queryBuilder
             ->getQuery()
-            ->getResult();
+            ->getResult(Query::HYDRATE_ARRAY);
+
+        return $this->buildTree($result);
     }
 }

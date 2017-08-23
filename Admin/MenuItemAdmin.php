@@ -11,6 +11,11 @@ use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
+/**
+ * Class MenuItemAdmin
+ *
+ * @package KunicMarko\SimpleMenuBundle\Admin
+ */
 class MenuItemAdmin extends AbstractAdmin
 {
 

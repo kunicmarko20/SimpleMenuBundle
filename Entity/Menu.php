@@ -10,6 +10,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Class Menu
+ *
  * @package KunicMarko\SimpleMenuBundle\Entity
  * @ORM\Entity()
  * @UniqueEntity(fields="machineName", message="Machine Name is already taken.")

@@ -11,7 +11,7 @@
     ],
 
     "keywords": ["simple menu bundle","menu bundle", "symfony", "bundle","symfony menu", "sonata admin menu"],
-    "homepage": "https://github.com/kunicmarko20/simple-menu",
+    "homepage": "https://github.com/kunicmarko20/SimpleMenuBundle",
     "license": "MIT",
     "require": {
         "php": "^7.0",
