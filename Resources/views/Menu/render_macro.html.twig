@@ -1,4 +1,4 @@
-{% macro render(items, level, depth = 1) %}
+{% macro render(items, depth = 1) %}
     {% import _self as menu %}
 
     <ul class="simple-menu-level-{{ depth }}">
@@ -7,8 +7,8 @@
                 <a href="{{ item.path }}">
                     {{- item.title -}}
                 </a>
-                {% if item.__children and level > depth %}
-                    {{ menu.render(item.__children, level, depth + 1) }}
+                {% if item.__children %}
+                    {{ menu.render(item.__children, depth + 1) }}
                 {% endif %}
             </li>
         {% endfor %}

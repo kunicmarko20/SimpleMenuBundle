@@ -4,7 +4,11 @@ php:
 
 before_script:
   - export PATH="$PATH:$HOME/.composer/vendor/bin"
-  - composer global require "squizlabs/php_codesniffer $PHPCS_VER"
+  - composer global require "squizlabs/php_codesniffer"
 
 script:
   - phpcs --extensions=php --standard=psr2 .
+
+notifications:
+  email:
+    on_failure: always

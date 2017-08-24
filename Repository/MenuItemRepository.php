@@ -25,7 +25,7 @@ class MenuItemRepository extends NestedTreeRepository
         return $queryBuilder;
     }
 
-    public function getTreeListByMenu(Menu $menu)
+    public function getTreeListByMenu(Menu $menu, $level = null)
     {
         $queryBuilder = $this->getNodesHierarchyQueryBuilder();
 
@@ -33,6 +33,11 @@ class MenuItemRepository extends NestedTreeRepository
             ->where('node.menu = :menu')
             ->andWhere('node.parent IS NOT NULL')
             ->setParameter('menu', $menu);
+
+        if ($level && is_numeric($level)) {
+            $queryBuilder->andWhere('node.lvl <= :level')
+                ->setParameter('level', $level);
+        }
 
         $result =  $queryBuilder
             ->getQuery()

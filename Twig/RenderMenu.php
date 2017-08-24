@@ -51,23 +51,31 @@ class RenderMenu extends \Twig_Extension
         ];
     }
 
-    public function fetchMenu($machineName)
+    /**
+     * @param $machineName
+     * @param int $level
+     * @return mixed
+     */
+    public function fetchMenu($machineName, $level = 1)
     {
         $menu = $this->menuRepository->findOneBy(['machineName' => $machineName]);
 
-        return $this->menuItemRepository->getTreeListByMenu($menu);
+        return $this->menuItemRepository->getTreeListByMenu($menu, $level);
     }
 
+    /**
+     * @param \Twig_Environment $environment
+     * @param $machineName
+     * @param int $level
+     * @return string
+     */
     public function renderMenu(\Twig_Environment $environment, $machineName, $level = 1)
     {
-        $menuItems = $this->fetchMenu($machineName);
+        $menuItems = $this->fetchMenu($machineName, $level);
 
         return $environment->render(
             $this->renderTemplate,
-            [
-                'items' => $menuItems,
-                'level' => $level
-            ]
+            ['items' => $menuItems]
         );
     }
 }
