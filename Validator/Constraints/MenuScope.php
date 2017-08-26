@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraint;
  */
 class MenuScope extends Constraint
 {
-    public $message = 'Parent must be in {{ menu }} menu scope.';
+    public $message = 'simple_menu.constraint.menu_scope';
 
     public function getTargets()
     {

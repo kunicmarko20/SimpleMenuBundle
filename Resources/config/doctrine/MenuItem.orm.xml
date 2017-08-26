@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd"
+                  xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping"
+>
+  <entity repository-class="KunicMarko\SimpleMenuBundle\Repository\MenuItemRepository"
+          name="KunicMarko\SimpleMenuBundle\Entity\MenuItem"
+          table="simple_menu_item"
+  >
+    <gedmo:tree type="nested"/>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="title" type="string" column="title" length="255" precision="0" scale="0" nullable="true"/>
+    <field name="path" type="string" column="path" length="255" precision="0" scale="0" nullable="true"/>
+    <field name="lft" type="integer" column="lft" precision="0" scale="0" nullable="false">
+      <gedmo:tree-left/>
+    </field>
+    <field name="lvl" type="integer" column="lvl" precision="0" scale="0" nullable="false">
+      <gedmo:tree-level/>
+    </field>
+    <field name="rgt" type="integer" column="rgt" precision="0" scale="0" nullable="false">
+      <gedmo:tree-right/>
+    </field>
+    <one-to-many field="children" target-entity="KunicMarko\SimpleMenuBundle\Entity\MenuItem" mapped-by="parent">
+      <order-by>
+        <order-by-field name="lft" direction="ASC"/>
+      </order-by>
+    </one-to-many>
+    <many-to-one field="menu" target-entity="KunicMarko\SimpleMenuBundle\Entity\Menu" inversed-by="menuItem">
+      <join-columns>
+        <join-column name="menu_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="root" target-entity="KunicMarko\SimpleMenuBundle\Entity\MenuItem">
+      <gedmo:tree-root/>
+      <join-columns>
+        <join-column name="root_id" referenced-column-name="id" on-delete="CASCADE" nullable="true"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="parent" target-entity="KunicMarko\SimpleMenuBundle\Entity\MenuItem" inversed-by="children">
+      <gedmo:tree-parent/>
+      <join-columns>
+        <join-column name="parent_id" referenced-column-name="id" on-delete="CASCADE" nullable="true"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

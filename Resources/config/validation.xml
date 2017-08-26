@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping         http://symfony.com/schema/dic/services/constraint-mapping-1.0.xsd">
+    <class name="KunicMarko\SimpleMenuBundle\Entity\Menu">
+        <constraint name="Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity">
+            <option name="fields">title</option>
+            <option name="errorPath">title</option>
+            <option name="message">simple_menu.title.already_used</option>
+        </constraint>
+        <constraint name="Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity">
+            <option name="fields">machineName</option>
+            <option name="errorPath">machineName</option>
+            <option name="message">simple_menu.machine_name.already_used</option>
+        </constraint>
+        <property name="title">
+            <constraint name="NotNull"/>
+            <constraint name="NotBlank"/>
+            <constraint name="Length">
+                <option name="max">255</option>
+                <option name="maxMessage">simple_menu.title.too_long</option>
+            </constraint>
+        </property>
+        <property name="machineName">
+            <constraint name="NotNull"/>
+            <constraint name="NotBlank"/>
+            <constraint name="Length">
+                <option name="max">255</option>
+                <option name="maxMessage">simple_menu.machine_name.too_long</option>
+            </constraint>
+            <constraint name="Regex">
+                <option name="pattern">/^[a-zA-Z0-9_]+$/</option>
+                <option name="message">simple_menu.machine_name.regex_not_valid</option>
+            </constraint>
+        </property>
+    </class>
+    <class name="KunicMarko\SimpleMenuBundle\Entity\MenuItem">
+        <constraint name="KunicMarko\SimpleMenuBundle\Validator\Constraints\MenuScope"/>
+        <property name="title">
+            <constraint name="NotNull"/>
+            <constraint name="NotBlank"/>
+            <constraint name="Length">
+                <option name="max">255</option>
+                <option name="maxMessage">simple_menu_item.title.too_long</option>
+            </constraint>
+        </property>
+        <property name="path">
+            <constraint name="NotNull"/>
+            <constraint name="NotBlank"/>
+            <constraint name="Length">
+                <option name="max">255</option>
+                <option name="maxMessage">simple_menu_item.path.too_long</option>
+            </constraint>
+        </property>
+        <property name="menu">
+            <constraint name="NotNull"/>
+            <constraint name="NotBlank"/>
+        </property>
+        <property name="parent">
+            <constraint name="NotNull"/>
+            <constraint name="NotBlank"/>
+        </property>
+    </class>
+</constraint-mapping>

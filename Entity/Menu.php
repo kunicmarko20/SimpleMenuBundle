@@ -4,59 +4,32 @@ namespace KunicMarko\SimpleMenuBundle\Entity;
 
 use Cocur\Slugify\Slugify;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Class Menu
  *
  * @package KunicMarko\SimpleMenuBundle\Entity
- * @ORM\Entity()
- * @UniqueEntity(fields="machineName", message="Machine Name is already taken.")
- * @UniqueEntity(fields="title", message="Title is already taken.")
- * @ORM\Table(name="simple_menu")
- * @ORM\HasLifecycleCallbacks()
  */
-
 class Menu
 {
     /**
-     * @var int
-     *
-     * @ORM\Column(type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     *
+     * @var integer
      */
     private $id;
 
     /**
      * @var string
-     * @Assert\NotBlank()
-     * @Assert\Length(
-     *      max = 255,
-     *      maxMessage = "Title cannot be longer than {{ limit }} characters"
-     * )
-     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $title;
 
     /**
      * @var string
-     * @Assert\Regex("/^[a-zA-Z0-9_]+$/")
-     * @Assert\Length(
-     *      max = 255,
-     *      maxMessage = "Machine Name cannot be longer than {{ limit }} characters"
-     * )
-     *
-     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $machineName;
 
     /**
-     * @ORM\OneToMany(targetEntity="MenuItem", mappedBy="menu", cascade={"persist","remove"}, orphanRemoval=true)
-     **/
+     * @var ArrayCollection
+     */
     private $menuItem;
 
     /**
@@ -157,18 +130,8 @@ class Menu
         return $this->menuItem;
     }
 
-
-    /**
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
-     */
-    public function onPersistUpdate()
+    public function addFirstMenuChild()
     {
-        if ($this->machineName === null) {
-            $slugify = new Slugify();
-            $this->machineName = $slugify->slugify($this->title);
-        }
-
         if ($this->menuItem->count() === 0) {
             $menuItem = new MenuItem();
             $menuItem->setTitle($this->title);

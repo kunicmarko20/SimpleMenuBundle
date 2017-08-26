@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <parameters>
+        <!-- COMMON -->
+        <parameter key="simple_menu.admin.groupname">CMS</parameter>
+        <!-- Menu -->
+        <parameter key="simple_menu.admin.menu.class">KunicMarko\SimpleMenuBundle\Admin\MenuAdmin</parameter>
+        <parameter key="simple_menu.admin.menu.controller">SonataAdminBundle:CRUD</parameter>
+        <parameter key="simple_menu.admin.menu.entity">KunicMarko\SimpleMenuBundle\Entity\Menu</parameter>
+        <!-- MenuItem -->
+        <parameter key="simple_menu.admin.menu_item.class">KunicMarko\SimpleMenuBundle\Admin\MenuItemAdmin</parameter>
+        <parameter key="simple_menu.admin.menu_item.controller">SimpleMenuBundle:MenuItemCRUD</parameter>
+        <parameter key="simple_menu.admin.menu_item.entity">KunicMarko\SimpleMenuBundle\Entity\MenuItem</parameter>
+    </parameters>
+    <services>
+        <service id="simple_menu.admin.menu" class="%simple_menu.admin.menu.class%">
+            <tag name="sonata.admin" manager_type="orm" group="%simple_menu.admin.groupname%" label="Menu" />
+            <argument/>
+            <argument>%simple_menu.admin.menu.entity%</argument>
+            <argument>%simple_menu.admin.menu.controller%</argument>
+            <call method="addChild">
+                <argument type="service" id="simple_menu.admin.menu_item"/>
+            </call>
+        </service>
+        <service id="simple_menu.admin.menu_item" class="%simple_menu.admin.menu_item.class%">
+            <tag name="sonata.admin" manager_type="orm" show_in_dashboard="false" />
+            <argument/>
+            <argument>%simple_menu.admin.menu_item.entity%</argument>
+            <argument>%simple_menu.admin.menu_item.controller%</argument>
+        </service>
+    </services>
+</container>

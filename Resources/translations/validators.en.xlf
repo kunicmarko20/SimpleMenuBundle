@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <!-- Menu -->
+            <trans-unit id="simple_menu.title.already_used">
+                <source>simple_menu.title.already_used</source>
+                <target>Title is already in use.</target>
+            </trans-unit>
+            <trans-unit id="simple_menu.title.too_long">
+                <source>simple_menu.title.too_long</source>
+                <target>Title cannot be longer than %limit% characters.</target>
+            </trans-unit>
+            <trans-unit id="simple_menu.machines_name.already_used">
+                <source>simple_menu.machine_name.already_used</source>
+                <target>Machine name is already in use.</target>
+            </trans-unit>
+            <trans-unit id="simple_menu.machine_name.too_long">
+                <source>simple_menu.machine_name.too_long</source>
+                <target>Machine name cannot be longer than %limit% characters.</target>
+            </trans-unit>
+            <trans-unit id="simple_menu.machine_name.regex_not_valid">
+                <source>simple_menu.machine_name.regex_not_valid</source>
+                <target>Only letters, numbers and underscores are allowed.</target>
+            </trans-unit>
+            <!-- MenuItem -->
+            <trans-unit id="simple_menu_item.title.too_long">
+                <source>simple_menu_item.title.too_long</source>
+                <target>Title cannot be longer than %limit% characters.</target>
+            </trans-unit>
+            <trans-unit id="simple_menu_item.path.too_long">
+                <source>simple_menu_item.path.too_long</source>
+                <target>Machine name cannot be longer than %limit% characters.</target>
+            </trans-unit>
+            <!-- MenuScope -->
+            <trans-unit id="simple_menu.constraint.menu_scope">
+                <source>simple_menu.constraint.menu_scope</source>
+                <target>Parent must be in "%menu%" menu scope.</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

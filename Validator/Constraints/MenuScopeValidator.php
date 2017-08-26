@@ -30,7 +30,7 @@ class MenuScopeValidator extends ConstraintValidator
         if ($menuItem->getMenu() !== $parent->getMenu()) {
             $this->context->buildViolation($constraint->message)
                 ->atPath('parent')
-                ->setParameter('{{ menu }}', (string)$menuItem->getMenu())
+                ->setParameter('%menu%', (string)$menuItem->getMenu())
                 ->addViolation();
         }
     }

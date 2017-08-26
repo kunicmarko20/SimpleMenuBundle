@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="KunicMarko\SimpleMenuBundle\Entity\Menu" table="simple_menu">
+    <id name="id" type="integer" column="id">
+      <generator strategy="AUTO"/>
+    </id>
+    <field name="title" type="string" column="title" length="255" precision="0" scale="0" nullable="true"/>
+    <field name="machineName" type="string" column="machine_name" length="255" precision="0" scale="0" nullable="true"/>
+    <one-to-many field="menuItem" target-entity="KunicMarko\SimpleMenuBundle\Entity\MenuItem" mapped-by="menu" orphan-removal="true">
+      <cascade>
+        <cascade-remove/>
+        <cascade-persist/>
+      </cascade>
+    </one-to-many>
+    <lifecycle-callbacks>
+      <lifecycle-callback type="prePersist" method="addFirstMenuChild"/>
+      <lifecycle-callback type="preUpdate" method="addFirstMenuChild"/>
+    </lifecycle-callbacks>
+  </entity>
+</doctrine-mapping>

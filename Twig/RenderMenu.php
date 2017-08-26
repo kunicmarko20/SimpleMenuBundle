@@ -11,6 +11,7 @@ namespace KunicMarko\SimpleMenuBundle\Twig;
 use Doctrine\ORM\EntityManager;
 use KunicMarko\SimpleMenuBundle\Entity\Menu;
 use KunicMarko\SimpleMenuBundle\Entity\MenuItem;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Class RenderMenu
@@ -59,6 +60,10 @@ class RenderMenu extends \Twig_Extension
     public function fetchMenu($machineName, $level = 1)
     {
         $menu = $this->menuRepository->findOneBy(['machineName' => $machineName]);
+
+        if (!$menu) {
+            throw new NotFoundHttpException('Menu not found.');
+        }
 
         return $this->menuItemRepository->getTreeListByMenu($menu, $level);
     }

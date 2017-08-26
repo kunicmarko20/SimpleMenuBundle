@@ -1,5 +1,5 @@
 {
-    "name": "kunicmarko/simple-menu",
+    "name": "kunicmarko/simple-menu-bundle",
     "description": "This is a Symfony Bundle that adds menu functionality to Sonata Admin.",
     "type": "symfony-bundle",
     "authors": [

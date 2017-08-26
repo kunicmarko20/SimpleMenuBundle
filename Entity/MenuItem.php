@@ -3,97 +3,61 @@
 namespace KunicMarko\SimpleMenuBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
-use Gedmo\Mapping\Annotation as Gedmo;
-use KunicMarko\SimpleMenuBundle\Validator\Constraints as SimpleMenuAssert;
 
 /**
  * Class MenuItem
  *
  * @package KunicMarko\SimpleMenuBundle\Entity
- * @Gedmo\Tree(type="nested")
- * @SimpleMenuAssert\MenuScope
- * @ORM\Entity(repositoryClass="KunicMarko\SimpleMenuBundle\Repository\MenuItemRepository")
- * @ORM\Table(name="simple_menu_item")
- * @ORM\HasLifecycleCallbacks()
  */
 class MenuItem
 {
     /**
-     * @var int
-     *
-     * @ORM\Column(type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     *
+     * @var integer
      */
     private $id;
 
     /**
      * @var string
-     * @Assert\NotBlank()
-     * @Assert\Length(
-     *      max = 255,
-     *      maxMessage = "Title cannot be longer than {{ limit }} characters"
-     * )
-     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $title;
 
     /**
      * @var string
-     * @Assert\NotBlank()
-     * @Assert\Length(
-     *      max = 255,
-     *      maxMessage = "Url cannot be longer than {{ limit }} characters"
-     * )
-     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $path;
 
     /**
-     * @Assert\NotBlank()
-     * @ORM\ManyToOne(targetEntity="Menu", inversedBy="menuItem")
+     * @var Menu
      */
     private $menu;
 
     /**
-     * @Gedmo\TreeLeft
-     * @ORM\Column(type="integer")
+     * @var integer
      */
     private $lft;
 
     /**
-     * @Gedmo\TreeLevel
-     * @ORM\Column(type="integer")
+     * @var integer
      */
     private $lvl;
 
     /**
-     * @Gedmo\TreeRight
-     * @ORM\Column(type="integer")
+     * @var integer
      */
     private $rgt;
 
     /**
-     * @Gedmo\TreeRoot
-     * @ORM\ManyToOne(targetEntity="MenuItem")
-     * @ORM\JoinColumn(referencedColumnName="id", onDelete="CASCADE")
+     * @var MenuItem
      */
     private $root;
 
     /**
-     * @Gedmo\TreeParent
-     * @Assert\NotNull()
-     * @ORM\ManyToOne(targetEntity="MenuItem", inversedBy="children")
-     * @ORM\JoinColumn(referencedColumnName="id", onDelete="CASCADE")
+     * @var MenuItem
      */
     private $parent;
 
     /**
-     * @ORM\OneToMany(targetEntity="MenuItem", mappedBy="parent")
-     * @ORM\OrderBy({"lft" = "ASC"})
+     * @var ArrayCollection
      */
     private $children;
 

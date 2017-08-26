@@ -21,9 +21,13 @@ class Configuration implements ConfigurationInterface
         $rootNode = $treeBuilder->root('simple_menu');
         $rootNode
             ->children()
-                ->scalarNode('render_template')
-                    ->defaultValue('SimpleMenuBundle:Menu:render.html.twig')
-                ->end()
+                ->arrayNode('template')
+                ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('render')
+                            ->defaultValue('SimpleMenuBundle:Menu:render.html.twig')
+                        ->end()
+                    ->end()
             ->end();
 
         return $treeBuilder;
