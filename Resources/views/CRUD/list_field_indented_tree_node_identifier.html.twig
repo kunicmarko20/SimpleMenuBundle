@@ -1,7 +1,7 @@
 {% extends '@SonataAdmin/CRUD/list_string.html.twig' %}
 
 {%- block field %}
-    <span>
+    <span {% if object.isDisabled %}style="color:black !important;"{% endif %}>
     {% for i in 2..object.lvl %}
         {% if object.lvl != 1 %}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{% endif %}{% if loop.last and object.lvl != 1 %}&boxur;&boxh;&nbsp;{% endif %}
     {% endfor %}

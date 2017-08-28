@@ -7,7 +7,7 @@
         <service id="simple_menu.twig.render_menu" class="%simple_menu.twig.render_menu.class%">
             <tag name="twig.extension"/>
             <argument type="service" id="doctrine.orm.entity_manager"/>
-            <argument>%simple_menu.render.template%</argument>
+            <argument>%simple_menu.template.render%</argument>
         </service>
     </services>
 </container>

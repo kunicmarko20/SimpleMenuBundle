@@ -55,6 +55,7 @@ class MenuItemAdmin extends AbstractAdmin
         $formMapper
             ->add('title')
             ->add('path')
+            ->add('disabled')
             ->add('parent', EntityType::class, [
                 'class' => MenuItem::class,
                 'query_builder' => function (MenuItemRepository $mir) use ($object) {

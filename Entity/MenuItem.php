@@ -60,6 +60,10 @@ class MenuItem
      * @var ArrayCollection
      */
     private $children;
+    /**
+     * @var boolean
+     */
+    private $disabled;
 
     /**
      * Get id
@@ -102,7 +106,11 @@ class MenuItem
      */
     public function setPath($path)
     {
-        $this->path = '/' . ltrim($path, '/');
+        if ($path !== null) {
+            $path = '/' . ltrim($path, '/');
+        }
+
+        $this->path = $path;
 
         return $this;
     }
@@ -116,6 +124,7 @@ class MenuItem
     {
         return $this->path;
     }
+
     /**
      * Constructor
      */
@@ -299,5 +308,21 @@ class MenuItem
     public function getRoot()
     {
         return $this->root;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDisabled()
+    {
+        return $this->disabled;
+    }
+
+    /**
+     * @param bool $disabled
+     */
+    public function setDisabled($disabled)
+    {
+        $this->disabled = $disabled;
     }
 }

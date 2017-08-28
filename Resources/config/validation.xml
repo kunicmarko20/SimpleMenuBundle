@@ -34,6 +34,7 @@
     </class>
     <class name="KunicMarko\SimpleMenuBundle\Entity\MenuItem">
         <constraint name="KunicMarko\SimpleMenuBundle\Validator\Constraints\MenuScope"/>
+        <constraint name="KunicMarko\SimpleMenuBundle\Validator\Constraints\DisabledPath"/>
         <property name="title">
             <constraint name="NotNull"/>
             <constraint name="NotBlank"/>
@@ -43,8 +44,6 @@
             </constraint>
         </property>
         <property name="path">
-            <constraint name="NotNull"/>
-            <constraint name="NotBlank"/>
             <constraint name="Length">
                 <option name="max">255</option>
                 <option name="maxMessage">simple_menu_item.path.too_long</option>

@@ -22,7 +22,7 @@ class SimpleMenuExtension extends Extension
     {
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
-        $container->setParameter('simple_menu.render.template', $config['render']['template']);
+        $container->setParameter('simple_menu.template.render', $config['template']['render']);
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('twig.xml');
         $loader->load('admin.xml');

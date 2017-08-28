@@ -23,6 +23,7 @@
     <field name="rgt" type="integer" column="rgt" precision="0" scale="0" nullable="false">
       <gedmo:tree-right/>
     </field>
+    <field name="disabled" type="boolean" column="disabled" nullable="true"/>
     <one-to-many field="children" target-entity="KunicMarko\SimpleMenuBundle\Entity\MenuItem" mapped-by="parent">
       <order-by>
         <order-by-field name="lft" direction="ASC"/>

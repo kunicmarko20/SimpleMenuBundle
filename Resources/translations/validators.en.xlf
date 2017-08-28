@@ -32,10 +32,14 @@
                 <source>simple_menu_item.path.too_long</source>
                 <target>Machine name cannot be longer than %limit% characters.</target>
             </trans-unit>
-            <!-- MenuScope -->
+            <!-- Other -->
             <trans-unit id="simple_menu.constraint.menu_scope">
                 <source>simple_menu.constraint.menu_scope</source>
                 <target>Parent must be in "%menu%" menu scope.</target>
+            </trans-unit>
+            <trans-unit id="simple_menu.constraint.disabled_path">
+                <source>simple_menu.constraint.disabled_path</source>
+                <target>If item is not disabled, path is mandatory.</target>
             </trans-unit>
         </body>
     </file>

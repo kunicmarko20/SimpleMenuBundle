@@ -4,9 +4,13 @@
     <ul class="simple-menu-level-{{ depth }}">
         {% for item in items %}
             <li>
-                <a href="{{ item.path }}">
+                {% if item.isDisabled %}
                     {{- item.title -}}
-                </a>
+                {% else %}
+                    <a href="{{ item.path }}">
+                        {{- item.title -}}
+                    </a>
+                {% endif %}
                 {% if item.__children %}
                     {{ menu.render(item.__children, depth + 1) }}
                 {% endif %}
