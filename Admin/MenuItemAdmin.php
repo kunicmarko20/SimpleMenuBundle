@@ -12,19 +12,16 @@ use Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 /**
- * Class MenuItemAdmin
- *
- * @package KunicMarko\SimpleMenuBundle\Admin
+ * Class MenuItemAdmin.
  */
 class MenuItemAdmin extends AbstractAdmin
 {
-
     protected $parentAssociationMapping = 'menu';
 
-    protected $datagridValues = array(
+    protected $datagridValues = [
         '_sort_order' => 'ASC',
-        '_sort_by'    => 'p.root, p.lft'
-    );
+        '_sort_by'    => 'p.root, p.lft',
+    ];
 
     /**
      * @param ListMapper $listMapper
@@ -32,17 +29,16 @@ class MenuItemAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('title', 'string', array(
-                'template' => 'SimpleMenuBundle:CRUD:list_field_indented_tree_node_identifier.html.twig'
-            ))
+            ->addIdentifier('title', 'string', [
+                'template' => 'SimpleMenuBundle:CRUD:list_field_indented_tree_node_identifier.html.twig',
+            ])
             ->add('path', 'url', ['label' => 'URL'])
-            ->add('_action', null, array(
-                'actions' => array(
-                    'edit' => array(),
-                    'delete' => array(),
-                ),
-            ))
-        ;
+            ->add('_action', null, [
+                'actions' => [
+                    'edit'   => [],
+                    'delete' => [],
+                ],
+            ]);
     }
 
     /**
@@ -57,16 +53,16 @@ class MenuItemAdmin extends AbstractAdmin
             ->add('path')
             ->add('disabled')
             ->add('parent', EntityType::class, [
-                'class' => MenuItem::class,
+                'class'         => MenuItem::class,
                 'query_builder' => function (MenuItemRepository $mir) use ($object) {
                     return $mir->getChildrenOfMenu($object->getMenu());
-                }
-            ])
-        ;
+                },
+            ]);
     }
 
     /**
      * @param string $context
+     *
      * @return ProxyQuery
      */
     public function createQuery($context = 'list')
@@ -75,13 +71,13 @@ class MenuItemAdmin extends AbstractAdmin
 
         $proxyQuery
             ->where('o.parent IS NOT NULL');
-        ;
 
         return $proxyQuery;
     }
 
     /**
      * @param string $name
+     *
      * @return string
      */
     public function getTemplate($name)

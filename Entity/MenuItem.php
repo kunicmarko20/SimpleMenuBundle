@@ -5,14 +5,12 @@ namespace KunicMarko\SimpleMenuBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * Class MenuItem
- *
- * @package KunicMarko\SimpleMenuBundle\Entity
+ * Class MenuItem.
  */
 class MenuItem
 {
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
@@ -32,17 +30,17 @@ class MenuItem
     private $menu;
 
     /**
-     * @var integer
+     * @var int
      */
     private $lft;
 
     /**
-     * @var integer
+     * @var int
      */
     private $lvl;
 
     /**
-     * @var integer
+     * @var int
      */
     private $rgt;
 
@@ -61,14 +59,14 @@ class MenuItem
      */
     private $children;
     /**
-     * @var boolean
+     * @var bool
      */
     private $disabled;
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -76,9 +74,10 @@ class MenuItem
     }
 
     /**
-     * Set title
+     * Set title.
      *
      * @param string $title
+     *
      * @return MenuItem
      */
     public function setTitle($title)
@@ -89,7 +88,7 @@ class MenuItem
     }
 
     /**
-     * Get title
+     * Get title.
      *
      * @return string
      */
@@ -99,15 +98,16 @@ class MenuItem
     }
 
     /**
-     * Set path
+     * Set path.
      *
      * @param string $path
+     *
      * @return MenuItem
      */
     public function setPath($path)
     {
         if ($path !== null) {
-            $path = '/' . ltrim($path, '/');
+            $path = '/'.ltrim($path, '/');
         }
 
         $this->path = $path;
@@ -116,7 +116,7 @@ class MenuItem
     }
 
     /**
-     * Get path
+     * Get path.
      *
      * @return string
      */
@@ -126,7 +126,7 @@ class MenuItem
     }
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -134,9 +134,10 @@ class MenuItem
     }
 
     /**
-     * Set menu
+     * Set menu.
      *
      * @param Menu $menu
+     *
      * @return MenuItem
      */
     public function setMenu(Menu $menu = null)
@@ -147,7 +148,7 @@ class MenuItem
     }
 
     /**
-     * Get menu
+     * Get menu.
      *
      * @return Menu
      */
@@ -157,9 +158,10 @@ class MenuItem
     }
 
     /**
-     * Set parent
+     * Set parent.
      *
      * @param MenuItem $parent
+     *
      * @return MenuItem
      */
     public function setParent(MenuItem $parent = null)
@@ -170,7 +172,7 @@ class MenuItem
     }
 
     /**
-     * Get parent
+     * Get parent.
      *
      * @return MenuItem
      */
@@ -180,9 +182,10 @@ class MenuItem
     }
 
     /**
-     * Add children
+     * Add children.
      *
      * @param MenuItem $children
+     *
      * @return MenuItem
      */
     public function addChild(MenuItem $children)
@@ -194,7 +197,7 @@ class MenuItem
     }
 
     /**
-     * Remove children
+     * Remove children.
      *
      * @param MenuItem $children
      */
@@ -204,7 +207,7 @@ class MenuItem
     }
 
     /**
-     * Get children
+     * Get children.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -219,9 +222,10 @@ class MenuItem
     }
 
     /**
-     * Set lft
+     * Set lft.
      *
-     * @param integer $lft
+     * @param int $lft
+     *
      * @return MenuItem
      */
     public function setLft($lft)
@@ -232,9 +236,9 @@ class MenuItem
     }
 
     /**
-     * Get lft
+     * Get lft.
      *
-     * @return integer
+     * @return int
      */
     public function getLft()
     {
@@ -242,9 +246,10 @@ class MenuItem
     }
 
     /**
-     * Set lvl
+     * Set lvl.
      *
-     * @param integer $lvl
+     * @param int $lvl
+     *
      * @return MenuItem
      */
     public function setLvl($lvl)
@@ -255,9 +260,9 @@ class MenuItem
     }
 
     /**
-     * Get lvl
+     * Get lvl.
      *
-     * @return integer
+     * @return int
      */
     public function getLvl()
     {
@@ -265,9 +270,10 @@ class MenuItem
     }
 
     /**
-     * Set rgt
+     * Set rgt.
      *
-     * @param integer $rgt
+     * @param int $rgt
+     *
      * @return MenuItem
      */
     public function setRgt($rgt)
@@ -278,9 +284,9 @@ class MenuItem
     }
 
     /**
-     * Get rgt
+     * Get rgt.
      *
-     * @return integer
+     * @return int
      */
     public function getRgt()
     {
@@ -288,9 +294,10 @@ class MenuItem
     }
 
     /**
-     * Set root
+     * Set root.
      *
      * @param MenuItem $root
+     *
      * @return MenuItem
      */
     public function setRoot(MenuItem $root = null)
@@ -301,7 +308,7 @@ class MenuItem
     }
 
     /**
-     * Get root
+     * Get root.
      *
      * @return MenuItem
      */

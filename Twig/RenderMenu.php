@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: Marko Kunic
  * Date: 8/20/17
- * Time: 4:43 PM
+ * Time: 4:43 PM.
  */
 
 namespace KunicMarko\SimpleMenuBundle\Twig;
@@ -14,9 +14,7 @@ use KunicMarko\SimpleMenuBundle\Entity\MenuItem;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
- * Class RenderMenu
- *
- * @package KunicMarko\SimpleMenuBundle\Twig
+ * Class RenderMenu.
  */
 class RenderMenu extends \Twig_Extension
 {
@@ -55,6 +53,7 @@ class RenderMenu extends \Twig_Extension
     /**
      * @param $machineName
      * @param int $level
+     *
      * @return mixed
      */
     public function fetchMenu($machineName, $level = 1)
@@ -72,6 +71,7 @@ class RenderMenu extends \Twig_Extension
      * @param \Twig_Environment $environment
      * @param $machineName
      * @param int $level
+     *
      * @return string
      */
     public function renderMenu(\Twig_Environment $environment, $machineName, $level = 1)
