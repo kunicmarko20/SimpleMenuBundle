@@ -8,16 +8,16 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
- * Class MenuItemCRUDController
- *
- * @package KunicMarko\SimpleMenuBundle\Controller
+ * Class MenuItemCRUDController.
  */
 class MenuItemCRUDController extends CRUDController
 {
     /**
-     * Pre set parent page when creating new page
+     * Pre set parent page when creating new page.
+     *
      * @param Request $request
-     * @param mixed $object
+     * @param mixed   $object
+     *
      * @return void
      */
     protected function preCreate(Request $request, $object)
@@ -42,6 +42,7 @@ class MenuItemCRUDController extends CRUDController
         if ($object->getParent()) {
             $repo->moveUp($object);
         }
+
         return $this->redirect($this->getRequest()->headers->get('referer'));
     }
 
@@ -59,6 +60,7 @@ class MenuItemCRUDController extends CRUDController
         if ($object->getParent()) {
             $repo->moveDown($object);
         }
+
         return $this->redirect($this->getRequest()->headers->get('referer'));
     }
 }

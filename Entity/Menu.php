@@ -2,18 +2,15 @@
 
 namespace KunicMarko\SimpleMenuBundle\Entity;
 
-use Cocur\Slugify\Slugify;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * Class Menu
- *
- * @package KunicMarko\SimpleMenuBundle\Entity
+ * Class Menu.
  */
 class Menu
 {
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
@@ -33,9 +30,9 @@ class Menu
     private $menuItem;
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -43,9 +40,10 @@ class Menu
     }
 
     /**
-     * Set title
+     * Set title.
      *
      * @param string $title
+     *
      * @return Menu
      */
     public function setTitle($title)
@@ -56,7 +54,7 @@ class Menu
     }
 
     /**
-     * Get title
+     * Get title.
      *
      * @return string
      */
@@ -66,9 +64,10 @@ class Menu
     }
 
     /**
-     * Set Machine Name
+     * Set Machine Name.
      *
      * @param string $machineName
+     *
      * @return Menu
      */
     public function setMachineName($machineName)
@@ -79,7 +78,7 @@ class Menu
     }
 
     /**
-     * Get title
+     * Get title.
      *
      * @return string
      */
@@ -89,7 +88,7 @@ class Menu
     }
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -97,9 +96,10 @@ class Menu
     }
 
     /**
-     * Add menuItem
+     * Add menuItem.
      *
      * @param MenuItem $menuItem
+     *
      * @return Menu
      */
     public function addMenuItem(MenuItem $menuItem)
@@ -111,7 +111,7 @@ class Menu
     }
 
     /**
-     * Remove menuItem
+     * Remove menuItem.
      *
      * @param MenuItem $menuItem
      */
@@ -121,7 +121,7 @@ class Menu
     }
 
     /**
-     * Get menuItem
+     * Get menuItem.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
