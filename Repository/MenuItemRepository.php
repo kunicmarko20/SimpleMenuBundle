@@ -2,15 +2,13 @@
 
 namespace KunicMarko\SimpleMenuBundle\Repository;
 
+use Doctrine\ORM\Query;
 use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
 use KunicMarko\SimpleMenuBundle\Entity\Menu;
 use KunicMarko\SimpleMenuBundle\Entity\MenuItem;
-use Doctrine\ORM\Query;
 
 /**
- * Class MenuItemRepository
- *
- * @package KunicMarko\SimpleMenuBundle\Repository
+ * Class MenuItemRepository.
  */
 class MenuItemRepository extends NestedTreeRepository
 {
@@ -39,7 +37,7 @@ class MenuItemRepository extends NestedTreeRepository
                 ->setParameter('level', $level);
         }
 
-        $result =  $queryBuilder
+        $result = $queryBuilder
             ->getQuery()
             ->getResult(Query::HYDRATE_ARRAY);
 
