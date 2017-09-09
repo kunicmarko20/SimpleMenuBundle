@@ -8,9 +8,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
 /**
- * Class MenuAdmin
- *
- * @package KunicMarko\SimpleMenuBundle\Admin
+ * Class MenuAdmin.
  */
 class MenuAdmin extends AbstractAdmin
 {
@@ -21,8 +19,7 @@ class MenuAdmin extends AbstractAdmin
     {
         $datagridMapper
             ->add('id')
-            ->add('title')
-        ;
+            ->add('title');
     }
 
     /**
@@ -34,14 +31,13 @@ class MenuAdmin extends AbstractAdmin
             ->add('id')
             ->add('title')
             ->add('machineName')
-            ->add('_action', null, array(
-                'actions' => array(
-                    'children' => array('template' => 'SimpleMenuBundle:CRUD:menu_children.html.twig'),
-                    'edit' => array(),
-                    'delete' => array()
-                ),
-            ))
-        ;
+            ->add('_action', null, [
+                'actions' => [
+                    'children' => ['template' => 'SimpleMenuBundle:CRUD:menu_children.html.twig'],
+                    'edit'     => [],
+                    'delete'   => [],
+                ],
+            ]);
     }
 
     /**
@@ -51,7 +47,6 @@ class MenuAdmin extends AbstractAdmin
     {
         $formMapper
             ->add('title')
-            ->add('machineName')
-        ;
+            ->add('machineName');
     }
 }
